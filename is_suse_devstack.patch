@@ -1,0 +1,13 @@
+diff --git a/inc/python b/inc/python
+index 81b6a960..ed4cc408 100644
+--- a/inc/python
++++ b/inc/python
+@@ -54,7 +54,7 @@ function get_python_exec_prefix {
+     $xtrace
+ 
+     local PYTHON_PATH=/usr/local/bin
+-    ( is_fedora && ! python3_enabled ) || is_suse && PYTHON_PATH=/usr/bin
++    ( is_fedora && ! python3_enabled ) || is_suse && PYTHON_PATH=/usr/local/bin
+     echo $PYTHON_PATH
+ }
+ 

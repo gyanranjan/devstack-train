@@ -1,0 +1,73 @@
+[[local|localrc]]
+HOST_IP=10.1.0.100
+PUBLIC_INTERFACE=eth2
+HOST_NAME=openstack
+RECLONE=True
+OFFLINE=False
+SERVICE_HOST_NAME=$HOST_NAME
+SERVICE_HOST=$HOST_IP
+DATABASE_TYPE=mysql
+SKIP_OVS_INSTALL=True
+USE_SCREEN=True
+
+GIT_BASE=https://github.com
+MYSQL_HOST=$SERVICE_HOST
+RABBIT_HOST=$SERVICE_HOST
+GLANCE_HOSTPORT=$SERVICE_HOST:9292
+KEYSTONE_AUTH_HOST=$SERVICE_HOST
+KEYSTONE_SERVICE_HOST=$SERVICE_HOST
+ADMIN_PASSWORD=password
+MYSQL_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+SERVICE_TOKEN=tokennekot
+DEST=/opt/stack
+DEST_DIR=/opt/stack
+SCREEN_LOGDIR=$DEST/logs/screen
+LOGFILE=$DEST/logs/stack.sh.log
+
+VNCSERVER_PROXYCLIENT_ADDRESS=$SERVICE_HOST
+VNCSERVER_LISTEN=$SERVICE_HOST
+KEYSTONE_USE_MOD_WSGI="True"
+NOVA_USE_MOD_WSGI="True"
+
+## Neutron options
+NEUTRON_AGENT=openvswitch
+Q_USE_SECGROUP=True
+ENABLE_TENANT_VLANS=True
+TENANT_VLAN_RANGE=3001:4000
+PHYSICAL_NETWORK=default
+OVS_PHYSICAL_BRIDGE=br-ex
+IP_VERSION=4+6
+SERVICE_IP_VERSION=4
+#FIXED_RANGE=
+#NETWORK_GATEWAY=<Provider Network Gateway>
+#ALLOCATION_POOL=<Provider Network Allocation Pool>
+#Q_USE_PROVIDER_NETWORKING=True
+#IPV6_PROVIDER_FIXED_RANGE="2002::1234:abcd:ffff:c0a8:101/64"
+#IPV6_PROVIDER_NETWORK_GATEWAY="2002::1234:abcd:ffff:c0a8:101/64"
+## Neutron Networking options used to create Neutron Subnets
+IPV4_ADDRS_SAFE_TO_USE="203.0.113.0/24"
+NETWORK_GATEWAY=203.0.113.1
+PROVIDER_SUBNET_NAME="provider_net"
+PROVIDER_NETWORK_TYPE="vlan"
+SEGMENTATION_ID=2010
+USE_SUBNETPOOL=False
+
+#disable_service mysql
+enable_service postgresql mysql
+
+PIP_UPGRADE=True
+enable_service s-proxy s-object s-container s-account
+SWIFT_HASH=66a3d6b56c1f479c8b4e70ab5c2000f5
+SWIFT_REPLICAS=1
+enable_service  rabbit glance key horizon nova 
+enable_service dstat g-api g-reg  nova n-cpu n-novnc n-api n-api-meta n-cauth n-cond n-crt n-obj n-sch 
+
+enable_service placement-api l2gw-plugin taas h-eng h-api h-api-cfn h-api-cw neutron q-meta q-svc q-dhcp q-agt q-l3
+SWIFT_DATA_DIR=$DEST/data/swift
+
+[[post-config|/$Q_PLUGIN_CONF_FILE]]
+global_physnet_mtu = 9000
+
+
